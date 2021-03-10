@@ -1,0 +1,45 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@model List<WebApp.Models.Product>
+
+<form>
+    <div class="row">
+        <div class="col-3">
+            <input type="text" name="q" class="form-control"placeholder="Search Product Name" />
+        </div>
+        <div class="col-9" >
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<partial name="Product" model="@Model"/>
+<center>
+    <button id="m" class="btn btn-primary" v="1">Load More</button>
+</center>
+<script>
+    $(m).click(function () {
+        var v = parseInt($(this).attr('v')) + 1;
+        $(this).attr('v', v);
+        $.post('/product/searchloadmore', { p: v, q: '@Context.Request.Query["q"]' },
+            function (a) {
+                for (var i in a) {
+                    var o = a[i];
+                    $(sheet).append(`<tr>
+                                        <td>${o['id']}</td>
+                                        <td>${o['name']}</td>
+                                        <td>${o['categoryName']}</td>
+                                        <td> ${o['brandName']}</td>
+                                        <td> ${o['modelYear']}</td>
+                                        <td> ${o['price']}</td>
+                                         <td>
+                                             <a href="/product/edit/${o['id']}"><i class="far fa-edit"></i></a>
+                                         </td>
+                                 </tr>`);
+                }
+
+            });
+        if (v >@ViewBag.n) {
+            $(this).hide();
+        }
+    });
+</script>

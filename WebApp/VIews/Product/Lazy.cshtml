@@ -1,0 +1,54 @@
+﻿@model List<WebApp.Models.Product>
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+<partial name=" Product" model="@Model" />
+@*<table class=" table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Model Year</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="sheet">
+            @foreach (WebApp.Model.Product item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td>@item.CategoryID</td>
+                    <td>@item.BrandName</td>
+                    <td>@item.ModelYear</td>
+                    <td>@item.Price</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>*@
+<script>
+    var p = 1;
+    $(window).scroll(function () {
+        //console.log('Top', $(this).scrollTop());
+        //console.log('Height', $(this).height());
+        //console.log('Document', $(document).height());
+        if (p<@ViewBag.n && $(this).scrollTop() + 1 >= $(document).height() - $(this).height()) {
+            p++;
+            $.post('/product/LoadMore/' + p, function (a) {
+                for (var i in a) {
+                    var o = a[i];
+                    $(sheet).append(`<tr>
+                                        <td>${o['id']}</td>
+                                        <td>${o['name']}</td>
+                                        <td>${o['categoryName']}</td>
+                                        <td> ${o['brandName']}</td>
+                                        <td> ${o['modelYear']}</td>
+                                        <td> ${o['price']}</td>
+                                 </tr>`);
+                }
+
+            });
+        }
+    });
+</script>

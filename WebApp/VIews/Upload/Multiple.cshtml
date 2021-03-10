@@ -1,0 +1,13 @@
+﻿@model List<string>
+<form enctype="multipart/form-data" method="post">
+    <input type="file" name="af" multiple/>
+    <button>Upload</button>
+</form>
+
+@if (Model != null)
+{
+    @foreach (string item in Model)
+    {
+        <img src="/upload/@item" width="200" />
+    }
+}

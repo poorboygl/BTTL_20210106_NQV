@@ -1,0 +1,35 @@
+﻿@{ 
+    Layout = "_LayoutAjax";
+}
+<script>
+    var $ = {};
+    $.get = function (url, f) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', url);
+        xhr.send();
+        xhr.onload = function () {
+            console.log('ham tu viet');
+            f.call(this, this.response);
+        }
+    }
+    $.get('/ajax/categories', function (a) { console.log(a) });
+</script>
+
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', '/ajax/categories');
+    xhr.send();
+    xhr.onload = function () {
+        console.log(this.response);
+    }
+    //$.post('/ajax/CategoryByID', { id: 1, name: "teo" }, function (o) { });
+    var id = 1
+    var name = "teo"
+    var xhr = new XMLHttpRequest;
+    xhr.open('post', '/ajax/CategoryByID');
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xhr.send('id=' + id + '&name=' + name);
+    xhr.onload = function () {
+        console.log(this.response);
+    }
+</script>

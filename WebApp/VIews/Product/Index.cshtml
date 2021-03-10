@@ -1,0 +1,112 @@
+﻿@model List<WebApp.Models.Product>
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+<ul>
+    <li><a href="/product/LoadMore">Load More</a></li>
+    <li><a href="/product/Lazy">Lazy</a></li>
+    <li><a href="/product/create">Create</a></li>
+</ul>
+@{ int p = ViewContext.RouteData.Values["id"] is null ? 1 : Convert.ToInt32(ViewContext.RouteData.Values["id"]);}
+<form action="/product/searchloadmore">
+    <div class="row">
+        <div class="col-3">
+            <input type="text" name="q" class="form-control" placeholder="Search load more" />
+        </div>
+        <div>
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+<form action="/product/search">
+    <input type="text" name="q" value="@Context.Request.Query["q"]" />
+    <button>Search</button>
+</form>
+<ul id="pagination" class="pagination">
+    @if (p > 1)
+    {
+        <li class="page-item">
+            <a class="page-link" href="/product/index/@(p-1)">Previous</a>
+        </li>
+    }
+    @for (int i = 1; i <= ViewBag.pages; i++)
+    {
+
+        <li class="p page-item">
+            <a class="page-link" href="/product/index/@i">@i</a>
+        </li>
+
+    }
+    @if (p < ViewBag.pages)
+    {
+        <li class="page-item">
+            <a class="page-link" href="/product/index/@(p+1)">Next</a>
+        </li>
+    }
+</ul>
+
+
+<partial name="Product" model="@Model" />
+<script>
+    $($('#pagination> li.p')[@(p-1)]).addClass('active')
+</script>
+
+
+@*<ul class="pagination">
+         @if (p > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="/product/index/@(p-1)">Previous</a>
+            </li>
+        }
+        @for (int i = 1; i <= ViewBag.pages; i++)
+        {
+            if (i == ViewBag.p)
+            {
+                <li class="page-item active">
+                    <a class="page-link" href="/product/index/@i">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/product/index/@i">@i</a>
+                </li>
+            }
+
+        }
+      @if (p < ViewBag.pages)
+    {
+        <li class="page-item">
+            <a class="page-link" href="/product/index/@(p+1)">Next</a>
+        </li>
+    }
+    </ul>*@
+@*<table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (WebApp.Model.Product item in Model)
+            {
+                <tr>
+                    <th>@item.ID</th>
+                    <th>@item.Name</th>-->
+                    <!--<th>@item.CategoryName</th>
+                    <th>@item.BrandName</th>
+                    <th>@item.ModelYear</th>
+                    <th>@item.Price</th>
+                    <td>
+                        <a href="/product/edit/@item.ID"><i class=" far fa-edit"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

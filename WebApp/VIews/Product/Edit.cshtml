@@ -1,0 +1,93 @@
+﻿@model WebApp.Models.Product
+<form method="post" name="frm">
+    <div class=" mb-3">
+        <label>Name</label>
+        <input class="form-control" type="text" required name="name" value="@Model.Name" />
+    </div>
+    <div class="mb-3">
+        <label>Category</label>
+        <select name="categoryId">
+            @foreach (WebApp.Models.Category item in ViewBag.categories)
+            {
+
+                    <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Brands</label>
+        <select name="brandID">
+            @foreach (WebApp.Models.Brand item in ViewBag.brands)
+            {
+                    <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Price</label>
+        <input class="form-control" type="number"required name="price" step="0.01" value="@Model.Price" />
+    </div>
+    <div class="mb-3">
+        <label>Model Year</label>
+        <input class="form-control" type="number" required name="modelYear" min="1900" max="2050" value="@Model.ModelYear" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
+<script>
+    $(frm['categoryId']).val(@Model.CategoryID)
+    $(frm['brandID']).val(@Model.BrandID)
+</script>
+@*---------------------------*@
+@*<form method="post">
+    <div class=" mb-3">
+        <label>Name</label>
+        <input class="form-control" type="text" required name="name" value="@Model.Name" />
+    </div>
+    <div class="mb-3">
+        <label>Category</label>
+        <select name="categoryId">
+            @foreach (WebApp.Model.Category item in ViewBag.categories)
+            {
+                if (item.Id == Model.CategoryID)
+                {
+                    <option selected value="@item.Id">@item.Name</option>
+
+                }
+                else
+                {
+                    <option value="@item.Id ">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Brands</label>
+        <select name="brandID">
+            @foreach (WebApp.Model.Brand item in ViewBag.brands)
+            {
+                if (item.Id == Model.BrandID)
+                {
+                    <option selected value="@item.Id">@item.Name</option>
+
+                }
+                else
+                {
+                    <option value="@item.Id ">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Price</label>
+        <input class="form-control" type="number" required name="price" step="0.01" value="@Model.Price" />
+    </div>
+    <div class="mb-3">
+        <label>Model Year</label>
+        <input class="form-control" type="number" required name="modelYear" min="1900" max="2050" value="@Model.ModelYear" />
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary">Save Changes</button>
+    </div>
+</form>*@

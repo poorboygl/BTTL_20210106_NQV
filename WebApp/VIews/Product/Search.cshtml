@@ -1,0 +1,45 @@
+﻿@model List<WebApp.Models.Product>
+<form action="/product/search">
+    <input type="text" name="q" value="@Context.Request.Query["q"]" />
+    <button>Search</button>
+</form>
+<ul class="pagination">
+    @for (int i = 0; i < ViewBag.n; i++)
+    {
+        <li class="page-item">
+            <a class="page-link" href="/product/search/@i?q=@Context.Request.Query["q"]" >@i</a>
+        </li>
+    }
+</ul>
+    <table class=" table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Model Year</th>
+                <th>Price</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody id="sheet">
+           @foreach (WebApp.Models.Product item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.Name</td>
+                    <td>@item.CategoryID</td>
+                    <td>@item.BrandName</td>
+                    <td>@item.ModelYear</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a href="/product/edit/@item.ID"><i class="far fa-edit"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <script> 
+    </script>

@@ -1,0 +1,8 @@
+﻿<form method="post">
+    <input type="url" name="url" required />
+    <button>Upload</button>
+</form>
+@if (!string.IsNullOrEmpty(Model))
+{
+<img src="/upload/@Model"  />
+}

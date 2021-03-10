@@ -1,0 +1,30 @@
+﻿@model  List<WebApp.Models.Product>
+<table class=" table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Model Year</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody id="sheet">
+        @foreach (WebApp.Models.Product item in Model)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td>@item.CategoryName</td>
+                <td>@item.BrandName</td>
+                <td>@item.ModelYear</td>
+                <td>@item.Price</td>
+                <td>
+                    <a href="/product/edit/@item.ID"><i class="far fa-edit"></i></a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

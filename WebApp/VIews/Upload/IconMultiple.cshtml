@@ -1,0 +1,39 @@
+﻿<i class="fas fa-cloud-upload-alt"></i>
+<form method="post" name="frm">
+    <input type="file" multiple name="f" />
+</form>
+<div id="rs"></div>
+<style>
+    form[name="frm"] {
+        display: none;
+    }
+</style>
+<script>
+    $('.fa-cloud-upload-alt').click(function () {
+        $(frm['f']).click();
+
+    });
+
+    $(frm['f']).change(function () {
+        var fd = new FormData();
+        for (var i = 0; i < this.files.length; i++) {
+            fd.append('af', this.files[i]);
+        }
+        $.ajax({
+            url: '/upload/IconMultiple',
+            type: 'post',
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function (a) {
+                //console.log(o);
+                for (var i in a) {
+                    $(rs).append(`<img width="100" src="/upload/${a[i]}"/>`);
+                }
+                
+            }
+
+        });
+
+    });
+</script>

@@ -1,0 +1,54 @@
+﻿@model List<WebApp.Models.Product>
+<table class=" table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Model Year</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody id="sheet">
+       @foreach (WebApp.Models.Product item in Model)
+        {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+            <td>@item.CategoryID</td>
+            <td>@item.BrandName</td>
+            <td>@item.ModelYear</td>
+            <td>@item.Price</td>
+        </tr>
+        }
+
+    </tbody>
+</table>
+<center><button v="1" class="btn btn-primary" id="m">Load More</button></center>
+<script>
+    $(m).click(function () {
+        var v = parseInt($(this).attr('v')) + 1;
+        console.log(v);
+        $(this).attr('v', v)
+        $.post('/product/loadmore/' + v, (a) => {
+            for (var i in a) {
+                var o = a[i];
+                $(sheet).append(`<tr>
+                                        <td>${o['id']}</td>
+                                        <td>${o['name']}</td>
+                                        <td>${o['categoryName']}</td>
+                                        <td> ${o['brandName']}</td>
+                                        <td> ${o['modelYear']}</td>
+                                        <td> ${o['price']}</td>
+                                 </tr>`);
+            }
+
+        });
+    if (v >=@ViewBag.n)
+    {
+        $(this).hide();
+    }
+    });
+
+</script>

@@ -1,0 +1,27 @@
+﻿<form enctype="multipart/form-data" method="post" name="frm">
+    <input type="file" name="f" />
+    <button>Upload</button>
+</form>
+<div id="rs"></div>
+<script>
+    $(frm).submit(function (ev) {
+        ev.preventDefault();
+        //var f = frm['f'].files[0];
+        //console.log(f.name);
+        var fd = new FormData();
+        fd.append('f', frm['f'].files[0]);
+        $.ajax({
+            url: '/upload/ajax',
+            type: 'post',
+            data: fd,
+            processData: false, //tell jquery no process data
+            contentType: false, //tell jquery not set content type
+            success: function (o) {
+                //console.log(o);
+                $(rs).append(`<img width="100" src="/upload/${o.name}">`)
+            }
+        });
+
+    });
+</script>
+

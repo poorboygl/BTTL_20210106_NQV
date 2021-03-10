@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="/favicon.jpg" rel="icon" type="image/x-icon" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/all.css" rel="stylesheet" />
+    <script src="~/js/jquery-3.5.1.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+    <ul>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>Welcome:<b>@User.Identity.Name</b></li>
+            <li>
+                <form action="/auth/logout" method="post">
+                    <button>Sign out</button>
+                </form>
+            </li>
+            if (User.IsInRole("Administrator"))
+            {
+                <li>
+                    <a href="/member">Manager Member</a>
+                </li>
+                <li>
+                    <a href="/role">Manager role</a>
+                </li>
+            }
+
+            <li>
+                <a href="/auth/">Auth</a>
+            </li>
+
+            <li>
+                <a href="/Ajax">Ajax</a>
+            </li>
+            <li>
+                <a href="/upload">Upload</a>
+            </li>
+            <li>
+                <a href="/Category">Category</a>
+            </li>
+            <li>
+                <a href="/brand">Brand</a>
+            </li>
+            <li>
+                <a href="/store">Store</a>
+            </li>
+            <li>
+                <a href="/product">Product</a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="/auth/signup">Sign up</a>
+            </li>
+            <li>
+                <a href="/auth/signin">Sign in</a>
+            </li>
+        }
+        <li><a href="/dummy">Dummy</a></li>
+    </ul>
+    <div class=" container-fluid">
+        @RenderBody()
+    </div>
+</body>
+</html>
