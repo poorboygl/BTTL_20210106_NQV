@@ -8,13 +8,10 @@ using Microsoft.Data.SqlClient;
 
 namespace WebApp.Models
 {
-    public class SiteProvider : IDisposable
+    public class SiteProvider : BaseProvider
     {
-        IDbConnection connection;
-        public SiteProvider(IConfiguration configuration)
+        public SiteProvider(IConfiguration configuration) :base(configuration)
         {
-            connection = new SqlConnection(configuration.GetConnectionString("BikeStore"));
-            connection.Open();
         }
         BrandRepository brand;
         MemberRepository member;
@@ -26,19 +23,19 @@ namespace WebApp.Models
             {
                 if (brand is null)
                 {
-                    brand = new BrandRepository(connection);
+                    brand = new BrandRepository(Connection);
                 }
                 return brand;
             }
         }
 
-        public void Dispose()
-        {
-            if (connection!= null && connection.State == ConnectionState.Open)
-            {
-                connection.Close();
-                connection.Dispose();
-            }
-        }
+        //public void Dispose()
+        //{
+        //    if (Connection!= null && Connection.State == ConnectionState.Open)
+        //    {
+        //        Connection.Close();
+        //        Connection.Dispose();
+        //    }
+        //}
     }
 }
